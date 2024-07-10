@@ -3,8 +3,13 @@ import ibus
 import sys
 import busio
 import board
+import analogio
 
+voltage_reader = analogio.AnalogIn(board.GP26)
 
+def read_voltage():
+    voltage_reading = voltage_reader.value * 3.3 / 65536
+    return round(voltage_reading, 2) # rounds to more numbers after the decimal point 
 
 class IBUSsensor():
     '''Sensor class for the IBUS - the update_measurements method is used as callback on IBUS'''
@@ -22,6 +27,10 @@ class IBUSsensor():
         measurements = [self.counter]
         #print(measurements)
         #return measurements
+
+        print("voltage reading:", read_voltage())
+        time.sleep(0.5)
+        
         return [1, 100, 100] # alt rpm extv
 
 
@@ -44,7 +53,12 @@ class IBUSservo():
 # Specify the sensortypes - see ibus.py for valid values, can be an array
 # The callback function for the sensor.update_measurements needs to return an array of the same length
 sensor_types = [ibus.IBUSS_ALT, ibus.IBUSS_RPM, ibus.IBUSS_EXTV]
-print('l45')
+
+print('l54')
+
+voltage_reading = voltage_reader.value
+print("voltage reading:", voltage_reading)
+
 # Instantiates the UART
 #uart = busio.UART(board.TX, board.RX, baudrate=115200, timeout=ibus.PROTOCOL_GAP)
 uart = busio.UART(board.GP0, board.GP1, baudrate=115200, timeout=ibus.PROTOCOL_GAP)
