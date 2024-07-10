@@ -9,7 +9,7 @@ voltage_reader = analogio.AnalogIn(board.GP26)
 
 def read_voltage():
     voltage_reading = voltage_reader.value * 3.3 / 65536
-    return round(voltage_reading, 2) # rounds to more numbers after the decimal point 
+    return round(voltage_reading, 2) * 4 # rounds two more numbers after the decimal point 
 
 class IBUSsensor():
     '''Sensor class for the IBUS - the update_measurements method is used as callback on IBUS'''
@@ -25,13 +25,14 @@ class IBUSsensor():
             self.counter = 0
 
         measurements = [self.counter]
-        #print(measurements)
+        
         #return measurements
 
         print("voltage reading:", read_voltage())
+        print("cell voltage:", round((read_voltage() / 2), 2))
         time.sleep(0.5)
         
-        return [1, 100, 100] # alt rpm extv
+        return [1, 100, (100*read_voltage()), round((read_voltage() / 2), 2)] # alt rpm extv intv
 
 
 class IBUSservo():
@@ -52,7 +53,7 @@ class IBUSservo():
         
 # Specify the sensortypes - see ibus.py for valid values, can be an array
 # The callback function for the sensor.update_measurements needs to return an array of the same length
-sensor_types = [ibus.IBUSS_ALT, ibus.IBUSS_RPM, ibus.IBUSS_EXTV]
+sensor_types = [ibus.IBUSS_ALT, ibus.IBUSS_RPM, ibus.IBUSS_EXTV, ibus.IBUSS_INTV]
 
 print('l54')
 
