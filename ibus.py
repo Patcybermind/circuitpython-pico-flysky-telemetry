@@ -11,8 +11,8 @@ IBUSS_VIBB    = 4 # Not defined, used by vibration MSB = Left, LSB = Right
 IBUSS_MAXALT  = 5
 IBUSS_ALT     = 6
 
-BASE_TEMP = -40
-BASE_ALT  = -100
+BASE_TEMP = -40 # was at -40
+BASE_ALT  = 0 # was at -100
 
 #protocol constants
 PROTOCOL_GAP = 0.003

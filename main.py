@@ -22,7 +22,7 @@ class IBUSsensor():
         measurements = [self.counter]
         #print(measurements)
         #return measurements
-        return [100, 100]
+        return [1, 100, 100] # alt rpm extv
 
 
 class IBUSservo():
@@ -43,7 +43,7 @@ class IBUSservo():
         
 # Specify the sensortypes - see ibus.py for valid values, can be an array
 # The callback function for the sensor.update_measurements needs to return an array of the same length
-sensor_types = [ibus.IBUSS_ALT, ibus.IBUSS_RPM]
+sensor_types = [ibus.IBUSS_ALT, ibus.IBUSS_RPM, ibus.IBUSS_EXTV]
 print('l45')
 # Instantiates the UART
 #uart = busio.UART(board.TX, board.RX, baudrate=115200, timeout=ibus.PROTOCOL_GAP)
@@ -59,7 +59,7 @@ if not doSERVO:
     ib = ibus.IBUS(uart, sensor_types, sensor.update_measurements, do_log = False)
     # now run the loop forever - on each loop, the sensor.update_measurements is called and measurements is passed to the receiver
     ib.start_loop()
-else:
+else: 
     servo = IBUSservo(1)
     # instantiates the IBUS class and specifies the call back
     # the board is conected to the SERVO port in this case
