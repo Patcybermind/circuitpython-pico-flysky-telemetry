@@ -6,6 +6,13 @@ import board
 import analogio
 
 voltage_reader = analogio.AnalogIn(board.GP26)
+cell_count = 3
+def update_cell_count():
+    if ((voltage_reader.value * 3.3 / 65536) < 8.6):
+        cell_count = 2
+    else:
+        cell_count = 3
+
 
 def read_voltage():
     voltage_reading = voltage_reader.value * 3.3 / 65536
@@ -27,12 +34,13 @@ class IBUSsensor():
         measurements = [self.counter]
         
         #return measurements
+        update_cell_count()
 
         print("voltage reading:", read_voltage())
-        print("cell voltage:", round((read_voltage() / 2), 2))
+        print("cell voltage:", round((read_voltage() / cell_count), 2))
         time.sleep(0.5)
         
-        return [1, 100, (100*read_voltage()), round((read_voltage() / 2), 2)] # alt rpm extv intv
+        return [1, 100, (100*read_voltage()), round((read_voltage() / cell_count), 2)] # alt rpm extv intv
 
 
 class IBUSservo():
