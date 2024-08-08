@@ -9,16 +9,16 @@ voltage_reader = analogio.AnalogIn(board.GP26)
 
 def read_voltage():
     voltage_reading = voltage_reader.value * 3.3 / 65536
-    return round(voltage_reading, 2) * 4 # rounds two more numbers after the decimal point 
+    return round(voltage_reading, 2) * 4 # rounds two more numbers after the decimal point
 
 class IBUSsensor():
-    '''Sensor class for the IBUS - the update_measurements method is used as callback on IBUS'''
+    '''Sensor class for the IBUS - the update_measurements method is used as callback on IBUS''' 
     def __init__(self):
         print("init")
         self.counter = 0
 
     def update_measurements(self):
-        '''Needs to return an array of measurements which will be called by the IBUS update loop'''
+        '''Needs to return an array of measurements which will be called by the IBUS update loop''' 
         #print("L16")
         self.counter += 1
         if self.counter >= 1000:
