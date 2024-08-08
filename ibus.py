@@ -14,7 +14,7 @@ IBUSS_ALT     = 6
 BASE_TEMP = -40 # was at -40
 BASE_ALT  = 0 # was at -100
 
-#protocol constants
+#protocol constants 
 PROTOCOL_GAP = 0.003
 PROTOCOL_SERVO = 0x40
 PROTOCOL_PING = 0x80
